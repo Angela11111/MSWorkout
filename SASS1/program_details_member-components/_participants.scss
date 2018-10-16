@@ -1,0 +1,30 @@
+.participants{
+	margin-top: 50px;
+	&-title{
+		text-transform: capitalize;
+		display: block;
+		color: $brick-red;
+		margin-bottom: 20px;
+		text-align: center;
+		&--number_of{
+			color:$text-light-grey;
+		}
+	}
+	&-container{
+		&--participant{
+			margin-top:20px;
+			&-profile_picture{
+				display: block;
+				height: 5rem;
+				width: 5rem;
+				background-image: url("../running.jpg");
+				border-radius: 50%;
+				vertical-align: top;
+				margin: auto auto 20px auto;
+			}
+			&-name{
+				text-align: center;
+			}
+		}
+	}
+}

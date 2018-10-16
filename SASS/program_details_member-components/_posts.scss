@@ -1,0 +1,59 @@
+.posts{
+	text-align: center;
+	margin-bottom: 50px;
+	&-btn_post{
+
+	}
+	&-title{
+		text-transform: capitalize;
+		display: block;
+		color: $brick-red;
+		margin-bottom: 20px;
+		text-align: center;
+		padding-right: 20px;
+	}
+	&-list{
+		&--post{
+			border: 1px solid $light-grey;
+			padding: 20px;
+			margin-top: 50px;
+			text-align: left;
+			&-title{
+				color: $brick-red;
+			}
+			&-picture{
+				background-image:  url("../running.jpg");
+				height: 18rem;
+			}
+			
+		}
+
+	}
+
+}
+.post_align{
+	text-align: center;
+}
+
+.post_modal{
+	padding: 10px;
+
+	&-header{
+		border-bottom: none;
+	}
+
+	&-content{
+		min-height: 100px;
+	}
+
+	&-footer{
+		border-top: none;
+	}
+}
+
+@media (min-width: 630px){
+	.post-modal{
+		
+	padding: 50px 100px;
+	}
+}

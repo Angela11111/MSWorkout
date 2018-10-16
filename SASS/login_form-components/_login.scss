@@ -1,0 +1,103 @@
+.page_content{
+	margin-bottom: 260px;
+}
+.login_form{
+	padding: 30px;
+
+	border-right: 0;
+	border-bottom: 1px solid lightgrey;
+
+	&-forgot_password_link{
+		font-weight: bold;
+		display: block;
+		text-align: right;
+		cursor:pointer;
+		&, &:link, &:visited, &:hover, &:focus, &:active{
+			color: $text-light-grey;
+			text-decoration: none;
+		}
+	}
+	#email, #pwd{
+		border-radius: 0;
+		border-color: $text-light-grey;
+	}
+	&-btn_login{
+		background-color:$brick-red;
+		color: $white;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 10px 30px;
+		margin-bottom: 30px;
+		&:visited, &:hover, &:focus, &:active{
+			background-color: $brick-darker-red; //TODO
+			color: $dim-white;
+		}
+	}
+	&-signup_link{
+		font-weight: bold;
+		display: block;
+		text-align: center;
+		cursor:pointer;
+		&, &:link, &:visited, &:hover, &:focus, &:active{
+			color: $brick-red;
+			text-decoration: none;
+		}
+	}
+	&-title{
+		display: block;
+		color: $text-light-grey;
+		margin-bottom: 20px;
+		text-align: center;
+		font-size: 16px;
+	}
+}
+
+.social_login{
+
+	&-title{
+		display: block;
+		color: $text-light-grey;
+		margin-bottom: 20px;
+		text-align: center;
+		font-size: 16px;
+	}
+
+	&-btn{
+		width: 100%;
+		margin-bottom: 10px;
+		height: 50px;
+		color: $white;
+		font-weight: bold;
+		&:hover{
+			color: $white;
+		}
+
+		&--with_facebook{
+			background-color: $facebook-blue;
+			&:visited, &:hover, &:active{
+				background-color: $facebook-darker-blue;
+			}
+		}
+		&--with_twitter{
+			background-color: $twitter-blue;
+			&:visited, &:hover, &:active{
+				background-color: $twitter-darker-blue;
+			}
+		}
+		&--with_google{
+			background-color: $google-red;
+			&:visited, &:hover, &:active{
+				background-color: $google-darker-red;
+			}
+		}
+	}
+
+}
+
+@media (min-width: 764px){
+	.login_form{
+		border-right: 1px solid lightgrey;
+		border-bottom: 0;
+	}
+}

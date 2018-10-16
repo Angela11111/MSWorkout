@@ -1,0 +1,87 @@
+.change_info_form{
+	padding: 30px;
+	text-align: center;
+
+	&-forgot_password_link{
+		font-weight: bold;
+		display: block;
+		text-align: right;
+		cursor:pointer;
+		&, &:link, &:visited, &:hover, &:focus, &:active{
+			color: $text-light-grey;
+			text-decoration: none;
+		}
+	}
+	.change_personal_info_control{
+		border-radius: 0;
+		border-color: $text-light-grey;
+	}
+	&-signup_link{
+		font-weight: bold;
+		display: block;
+		text-align: center;
+		cursor:pointer;
+		&, &:link, &:visited, &:hover, &:focus, &:active{
+			color: $brick-red;
+			text-decoration: none;
+		}
+	}
+	&-title{
+		display: block;
+		color: $brick-red;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	&-change_instructions{
+		margin-top: 50px;
+		display: block;
+		color: $text-light-grey;
+		margin-bottom: 16px;
+		text-align: center;
+	}
+
+	&-profile_picture_section{
+		margin-bottom: 100px;
+		
+		&--profile_picture{
+			display: block;
+			height: 20rem;
+			width:20rem;
+			background-image: url("../running.jpg");
+			border-radius: 50%;
+			vertical-align: top;
+			margin: auto auto 20px auto;
+		}
+		&--picture_change_btn{
+			margin-right: 10px;
+		}
+		&--picture_remove_btn{
+			margin-left: 10px;
+		}
+	}
+
+
+}
+
+.default_btns{
+		color: $text-light-grey;
+		background-color: $white;
+		padding: 10px 30px;
+		text-transform: capitalize;
+		font-weight: bold;
+		border: 1px solid $brick-red;
+		margin-top: 5px;
+}
+.alt_btns{
+		background-color:$brick-red;
+		color: $white;
+		padding: 10px 30px;
+		margin-top: 5px;
+		text-transform: capitalize;
+		font-weight: bold;
+		&:visited, &:hover, &:focus, &:active{
+			background-color: $brick-darker-red; //TODO
+			color: $dim-white;
+		}
+	}

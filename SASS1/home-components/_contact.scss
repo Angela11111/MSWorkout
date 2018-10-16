@@ -1,0 +1,48 @@
+.imgg{
+// 	background-color: black;
+// 	background-image: url("../running.jpg");
+	height: 300px;
+}
+
+.contact_content{
+	padding:30px 30px;
+	text-align: center;
+
+	&--title{
+		color: $brick-red;
+		text-align: center;
+		padding-bottom: 20px;
+	}
+
+}
+.contact_info{
+	margin: 20px 0px;
+	&-btn{
+		background-color: transparent;
+		color: $brick-red;
+	}
+	&-glyphicon{
+		margin-right:10px;
+	}
+
+}
+
+.contact_message_form{
+	padding: 30px;
+	#email, #pwd{
+		border-radius: 0;
+	}
+	&-btn_send{
+		background-color:$brick-red;
+		color: $white;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 10px 30px;
+		margin-bottom: 30px;
+		&:visited, &:hover, &:focus, &:active{
+			background-color: $brick-darker-red; //TODO
+			color: $dim-white;
+		}
+	}
+}

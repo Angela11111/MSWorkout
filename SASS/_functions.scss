@@ -1,0 +1,7 @@
+@function px2rem($size-pixels, $default-size: $default-font-size){
+		@return ($size-pixels/$default-size)*10 +  rem
+}
+
+@function px2em($size-pixels, $default-size: $default-font-size){
+		@return ($size-pixels/$default-size) + em
+}

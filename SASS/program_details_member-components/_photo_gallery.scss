@@ -1,0 +1,22 @@
+.photo_gallery{
+	margin-top: 20px;
+	&-title{
+		text-transform: capitalize;
+		display: block;
+		color: $brick-red;
+		margin-bottom: 20px;
+		text-align: center;
+		padding-right: 20px;
+	}
+	&-images{
+		margin-top: 20px;
+
+		&--image_container{
+			padding: 10px;
+		}
+		&--image{
+			background-image:  url("../running.jpg");
+			height: 18rem;
+		}
+	}
+}

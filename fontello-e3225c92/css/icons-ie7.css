@@ -1,0 +1,17 @@
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icons';
+  font-style: normal;
+  font-weight: normal;
+ 
+  /* fix buttons height */
+  line-height: 1em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+}
+ 
+.icon-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.icon-users { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf064;&nbsp;'); }
+.icon-user-circle { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2bd;&nbsp;'); }
+.icon-twitter-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf304;&nbsp;'); }
+.icon-facebook-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf308;&nbsp;'); }

@@ -1,0 +1,95 @@
+.site_name{
+	color: $text-light-grey;
+	text-align: center;
+	opacity: 0.5;
+	margin-top: 30px;
+}
+
+.personal_info{
+	margin: 40px 0px;
+	padding: 0px 40px;
+
+	text-align: center;
+
+	&-title{
+		color: $brick-red;
+		text-transform: capitalize;
+		text-align: center;
+	}
+	&-content{
+		// background-color: yellow;
+		padding: 30px;
+
+		&--profile_picture{
+			display: inline-block;
+			height: 20rem;
+			width:20rem;
+			background-image: url("../running.jpg");
+			border-radius: 50%;
+			vertical-align: top;
+		}
+
+		&--basic_info{
+			display: inline-block;
+			text-transform: capitalize;
+			vertical-align: top;
+			margin-top: 5rem;
+
+			margin-left: 0;
+			
+			&-data{
+				font-size: 20px;
+				color: $brick-red;
+			}
+			&-labels{
+				color: $text-light-grey;
+				font-weight: normal;
+			}
+		}
+		&--goto_edit_profile{
+
+			text-align: left;
+
+			padding: 20px 0;
+			&-btn{
+				background-color: $brick-red;
+				color: $white;
+				padding: 10px 30px;
+				text-transform: capitalize;
+				font-weight: bold;
+			}
+		}
+	}
+
+}
+
+@media (min-width: 603px){
+	.personal_info{
+		text-align: left;
+		&-content{
+			&--basic_info{
+				margin-left: 3rem;
+			}
+		}
+	}
+}
+
+@media (min-width: 874px){
+	.personal_info{
+		&-content{
+			&--goto_edit_profile{
+				text-align:center;
+			}
+		}
+	}
+}
+
+@media (max-width: 599px){
+	.personal_info{
+		&-content{
+			&--goto_edit_profile{
+				text-align:center;
+			}
+		}
+	}
+}

@@ -1,0 +1,77 @@
+.site_content{
+	margin-bottom: 50px;
+}
+
+
+.back_link{
+	border: none;
+	display: block;
+	margin:50px auto;
+	font-size: 16px;
+	text-align: center;
+	cursor:pointer;
+	&:link, &:hover, &:visited, &:focus, &:active{
+		color:$brick-red;
+		text-decoration: none;
+	}
+	&-glyphicon{
+		margin-right:10px;
+		font-family: icons;
+		&:before{
+			content:'\e801';
+		}
+	}
+}
+
+.featured_image{
+	background-image: url("../running.jpg");
+	height: 300px;
+	background-position: 0 -600px;
+}
+
+.program_details{
+	clear: left;
+	text-align: center;
+	font-size: 16px;
+	&-name{
+		margin-bottom: 20px;
+		color:$brick-red;
+	}
+	&-description{
+		color: $text-light-grey;
+		text-align: justify;
+	}
+	&-spaces_available{
+		text-align: left;
+		color:$brick-red;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		&--glyphicon{
+			font-family: icons;
+			&:before{
+				content:'\f064';
+			}
+		}
+
+	}
+	&-location_selection{
+		margin-bottom:0px;
+		& > .locations{
+			border-radius: 0px;
+			color: $text-light-grey;
+			margin-bottom: 50px;
+		}
+	}
+	&-sign_up{
+		background-color:$brick-red;
+		color: $white;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		&:hover{
+			background-color: $brick-darker-red;
+			color: $white;
+		}
+	}
+}
+

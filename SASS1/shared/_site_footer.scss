@@ -1,0 +1,32 @@
+.site_footer{
+	
+	background-color:$brick-red;
+	color: $white;
+	padding: 50px 100px;
+	min-height: 175px !important;
+	&-right{
+		margin-top: 23px;
+		font-size: 40px;
+
+		&--facebook_glyphicon{
+			font-family: icons;
+			cursor:pointer;
+			&:before{
+				content:'\f308';
+			}
+		}
+
+		&--twitter_glyphicon{
+			font-family: icons;
+			cursor:pointer;
+			&:before{
+				content:'\f304';
+			}
+		}
+	}
+	&-left{
+		&--company{
+			font-weight:bold;
+		}
+	}
+}
