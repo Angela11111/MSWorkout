@@ -122,17 +122,28 @@ $content = '<div class="site_content container">
 
 							<hr>
 
+							
+							<label>Locations:</label>
+							
+							
 							<div class="form-group">
-								<label for="program_modal-locations">Locations:</label>
+								<label for="program_modal-locations" hidden="true">Locations:</label>
 								<input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations" placeholder="Location">
 							</div>
+							<div class="form-group">
+								<label for="program_modal-locations" hidden="true">Locations:</label>
+								<input type="text" class="form-control" name="max_participants" placeholder="Max participants in location..">
+							</div>
+
+							<hr>
+
 							<div class="form-group">
 								<label for="program_modal-locations" hidden="true">Locations:</label>
 								<input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations" placeholder="Location">
 							</div>
 							<div class="form-group">
 								<label for="program_modal-locations" hidden="true">Locations:</label>
-								<input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations" placeholder="Location">
+								<input type="text" class="form-control" name="max_participants" placeholder="Max participants in location..">
 							</div>
 
 					    <button type="submit" class="btn btn-default">Submit</button>

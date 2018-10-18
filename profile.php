@@ -1,10 +1,9 @@
 <?php
+
+
 include "functions.php";
 //log_in("angelaa@yahoo.com","angela1");
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+$notices = error_notice("", "get");
 $content = '<div class="site_content container">
 				<div class="site_name">
 					<h1>My account</h1>

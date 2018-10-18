@@ -1,7 +1,8 @@
 <?php
 include "functions.php";
 get_company_details();
-session_start();
+
+
 
 $content = '<div class="page_content">
 				<section id="myCarousel" class="carousel slide section_default" data-ride="carousel">

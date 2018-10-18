@@ -4,6 +4,7 @@ function get_user_programs($user =''){
 	
 	if($user == ''){
 		if(!isset($_SESSION["user_in_programs"])){
+			
 			$query = "SELECT count(mem.id) as number_of_members_in_program, mem.program_in_location as program_in_location, q.program_name as name, q.user_date as user_joined_date, q.program_id as id, q.full_adress as location from members mem, (select m.program_in_location as program_in_location, p.id as program_id, p.name as program_name, m.date_entered as user_date, l.full_adress from members m, programs p, programs_locations pl, locations l where m.user_id = ". $_SESSION["user"] . " and m.program_in_location = pl.id and pl.program_id = p.id and l.id = pl.location_id)q where mem.program_in_location = q.program_in_location group by q.program_name, q.user_date, q.program_id, q.full_adress, mem.program_in_location;";
 			$programs = mysqli_query($database_connection, $query);
 
@@ -17,7 +18,7 @@ function get_user_programs($user =''){
 		return 0;
 	}
 	else{
-		$query = "SELECT count(mem.id) as number_of_members_in_program, mem.program_in_location as program_in_location, q.program_name as name, q.user_date as user_joined_date, q.program_id as id, q.full_adress as location from members mem, (select m.program_in_location as program_in_location, p.id as program_id, p.name as program_name, m.date_entered as user_date, l.full_adress from members m, programs p, programs_locations pl, locations l where m.user_id = ". $user . " and m.program_in_location = pl.id and pl.program_id = p.id and l.id = pl.location_id)q where mem.program_in_location = q.program_in_location group by q.program_name, q.user_date, q.program_id, q.full_adress, mem.program_in_location;";
+		$query = "SELECT count(mem.id) as number_of_members_in_program, mem.program_in_location as program_in_location, q.program_name as name, q.user_date as user_joined_date, q.program_id as id, q.full_adress as location from members mem, (select m.program_in_location as program_in_location, p.id as program_id, p.name as program_name, m.date_entered as user_date, l.full_adress from members m, programs p, programs_locations pl, locations l where m.user_id = ". $_SESSION["user"] . " and m.program_in_location = pl.id and pl.program_id = p.id and l.id = pl.location_id)q where mem.program_in_location = q.program_in_location group by q.program_name, q.user_date, q.program_id, q.full_adress, mem.program_in_location;";
 			$programs = mysqli_query($database_connection, $query);
 
 			//var_dump($programs);

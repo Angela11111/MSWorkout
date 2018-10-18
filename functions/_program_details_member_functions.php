@@ -163,11 +163,67 @@ function submit_post($post){
 	if($insert_post_query){
 		//error_notice("You just submited the post!");
 		//print("YES");
+		return mysqli_insert_id($database_connection);
 	}
 	else{
 		error_notice("The post could not be submited.");
 		//print("NO");
+		return false;
 	}
+}
+
+function upload_post_images($max_size = 5000000){
+	foreach ($_FILES as $file) {
+		$picture  = $file["profile_pic"];
+		$picture_name = $picture["name"];
+		$picture_temp_location = $picture["tmp_name"];
+		$picture_type = $picture["type"];
+		$picture_size = $picture["size"];
+		$error = $picture["error"];
+
+		$picture_name_ext = explode(".", $picture_name);
+		$picture_actual_ext = trim(strtolower(end($picture_name_ext)));
+
+		$allowed = ["jpg", "jpeg", "gif", "png"];
+
+		$new_locations = [];
+		if(in_array($picture_actual_ext, $allowed)){
+
+			if($error === 0){
+
+				if($picture_size < $max_size){
+
+					$picture_new_name = uniqid('', true) . "." . $picture_actual_ext;
+					move_uploaded_file($picture_temp_location, $picture_new_name);
+					$new_locations[] = $picture_new_name;
+				}
+				else{
+					error_notice("Size too big");
+					return 0;
+				}
+			}
+			else{
+				error_notice("Error in image " );
+				var_dump($picture);
+				return 0;
+			}
+		}
+		else{
+			error_notice("not allowed extension");
+			return 0;
+		}
+	}
+	return $locations;
+	
+}
+
+
+function update_posts_table($img_location, $post_id){
+	global $database_connection;
+
+	$img_location = clean_variable($img_location);
+	$set_post_imgs_query = mysqli_query($database_connection, "INSERT INTO post_images(image_url, image_title, post_id) VALUES('" . $img_location ."', '". $post_id . "'");
+	var_dump($set_post_imgs_query);
 }
 
 ?>

@@ -1,9 +1,7 @@
-<?php 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
+<?php
+$_SESSION["notices"] = '';
 get_company_details();
+
 
 if(isset($_SESSION["user"])){
 	$user_link = '<a href="#" data-toggle="popover" data-placement="bottom" class="main_menu-link">
@@ -18,6 +16,7 @@ else{
 		      	<div class="glyphicon glyphicon-user login-glyphicon"></div></a>';
 }
 ?>
+
 <html lang="en">
 
 	<head>
@@ -26,8 +25,10 @@ else{
 		<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="bootstrap-sass-3.3.7/assets/javascripts/bootstrap.js"></script>
 	</head>
+	
 
 	<body>
+
 		<nav class="navbar navbar-default main_menu">
 		  <div class="container main_menu-container">
 		    <div class="navbar-header">
@@ -41,7 +42,10 @@ else{
 		      <li><?php print($user_link);?></li>
 		    </ul>
 		  </div>
-		</nav>  
+		</nav> 
+		<div id="notices">
+			
+		</div>
 
 		<main>
 			<?php
@@ -79,41 +83,24 @@ else{
 </html>
 <?php
 	if(isset($_REQUEST["action"])){
+			
 		switch ($_REQUEST["action"]) {
-			case 'log_in':
+			case 'login':
+				var_dump("LOGIN");
 				$login_email = $_REQUEST["login_email"];
 				$login_password = $_REQUEST["login_password"];
 				log_in($login_email, $login_password);
-
 				if(isset($_SESSION["user"])){
 					header('Location: profile.php'); 
 				}
+
 			break;
 			
 			case 'log_out':
 				log_out();
-				header('Location: home.php');
-				header("Refresh:0; url=home.php");
 
 			break;
 
-			case 'program_details':
-				$program_id = $_REQUEST["program_id"];
-				if(isset($_SESSION["user"])){
-					
-					$programs_locations = get_program_location_id($program_id, $_SESSION["user"]);
-					if(get_program_members($programs_locations)[$_SESSION["user"]] != null){
-						//var_dump(get_program_members($programs_locations)[$_SESSION["user"]]);
-						header('Location: program_details.php?program_id='.$program_id .'&program_in_location_id=' . $programs_locations); 
-					}
-					else{
-						header('Location: program_details.php?program_id='. $program_id); 
-					}
-				}
-				else{
-					header('Location: program_details.php?program_id='. $program_id); 
-				}
-				break;
 
 			case 'submit_post':
 				$user= $_SESSION["user"];
@@ -121,15 +108,20 @@ else{
 
 				$title = $_REQUEST["new_post_title"];
 				$content = $_REQUEST["new_post_content"];	
+				//$img_titles = $_REQUEST["img_titles"];
 
 				if($title == '' and $content == ''){
 					error_notice("The post title and content should not be empty.");
 				}
 				else{
 					$member = get_member_id($user, $program_in_location);
-					var_dump($program_in_location);
 					$post = ["member" => $member, "program_in_location" => $program_in_location, "title" => $title, "content" => $content];
-					submit_post($post);
+					$submited_post_id = submit_post($post);
+					if($submited_post_id){
+						$locations = upload_post_images();
+						update_posts_table($locations,  $submited_post_id);
+					}
+
 						header('Location: program_details.php?program_id='.$program_id .'&program_in_location_id=' . $program_in_location); 
 
 				}
@@ -137,27 +129,70 @@ else{
 			case 'save_changes_profile':
 				$user= $_SESSION["user"];
 				$name_surname = explode(" ", clean_variable($_REQUEST["update_name_surname"]));
-				$info = ["name" => $name_surname[0], "surname" => $name_surname[1], "email" => $_REQUEST["update_email"], "password" => $_REQUEST["current_password"]];
-				if($_REQUEST["current_password"] != $_SESSION["user_details"]["password"]){
-					error_notice("That is not your current password. Please try again.");
 
-				}
-				elseif($_REQUEST["update_password-new"] != $_REQUEST["update_password-new_confirm"]){
-					error_notice("The passwords you entered do not match. Please try again.");
-				}
-				else{
-					update_personal_info($user, $info);
-				}
+				$info = ["name" => $name_surname[0], "surname" => $name_surname[1], "email" => $_REQUEST["update_email"]];
 				
 
-				var_dump(error_notice("", "get"));
+				if(sha1($_REQUEST["current_password"]) != $_SESSION["user_details"]["password"]){
+				 	// error_notice("That is not your current password. Please try again.");
+				 	update_personal_info($user, $info); 
+
+				}
+				elseif($_REQUEST["update_password-new"] != ''){
+					if($_REQUEST["update_password-new"] != $_REQUEST["update_password-new_confirm"]){
+						error_notice("The passwords you entered do not match. Please try again.");
+					}
+					else{
+						$info["password"] = $_REQUEST["update_password-new"];
+					}
+				}
+				else{
+					update_personal_info($user, $info); 
+
+				}
+				$_SESSION["notices"] .= error_notice("", "get");
+				
 			break;
+		case 'signup':
+			$data = ["name" => $_POST["signup_name"], "surname" => $_POST["signup_surname"], "email" => $_POST["signup_email"], "password" => $_POST["signup_password"], "birth_date" => $_POST["signup_birth_date"], "credit_card_number" => $_POST["signup_credit_card_number"]];
+			if($_POST["signup_password"] != $_POST["signup_confirm_password"]){
+					error_notice("The passwords you entered do not match. Please try again.");
+			}
+			else{
+				
+				if(sign_up($data)){
+					//header('Location: profile.php');
+				}
+			}
+		break;
+		case 'upload_pic':
+			$_SESSION["temp_profile_picture"] = upload_picture_temp();
+			finish_image_upload($_SESSION["temp_profile_picture"]); //eden pristap do baza
+			unset($_SESSION["temp_profile_picture"]);
+
+			break;
+		
+
+
 		}
 	}
 ?>
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({content: $(".data-toggle_link"), html:true});   
+    $('[data-toggle="popover"]').popover({content: $(".data-toggle_link"), html:true});
+    });
+$(window).on( "load", function() {
+    
+    html_data = '';
+     $.ajax({
+                type: "POST",
+                url: "get_notices_realtime.php",
+                success: function(response){
+                    html_data = response;
+                   // alert(response);
+                }
+            });
+    $("#notices").html(html_data);
 });
 </script>

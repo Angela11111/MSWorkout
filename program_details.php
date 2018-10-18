@@ -1,14 +1,14 @@
 <?php 
 	
 	include "functions.php"; 
-	
 	get_programs();
 	$program_id = $_GET["program_id"];
 	$locations = get_locations($program_id);
 	$_SESSION["programs"][$program_id]["locations"] = $locations;
+	
 	$options = generate_location_items($_SESSION["programs"][$program_id]["locations"]);
-
-	if(isset($_GET["program_in_location_id"])){
+	$signup_btn = isset($_SESSION["user"]) ? '<span style="margin-left:auto; margin-right:auto;" class="btn alt_btns program_details-sign_up program_details-sign_up" title="Sign up for program" data-toggle="modal" data-target="#program_signup_modal"> Sign up</span>' : '<a class="btn alt_btns program_details-sign_up" href="signup.php">Sign Up</a>';
+	if($_GET["program_in_location_id"] != ''){
 		$program_in_location_id = isset($_GET["program_in_location_id"]) ? $_GET["program_in_location_id"]:'';
 		$members = get_program_members($program_in_location_id); 
 		$program_location = ($program_in_location_id == '') ? '': get_program_location($program_in_location_id);
@@ -103,6 +103,16 @@
 
 	}
 	else{
+		$max_members = '';
+		$hidden = "";
+		foreach ($_SESSION["programs"][$program_id]["locations"] as $key => $value) {
+			$max_members .= '<div class="program_details-spaces_available '. $hidden .'" for_location="'. $key .'">
+								<span class="program_details-spaces_available--glyphicon"></span>
+									Capacity of location: 
+								 '. $_SESSION["programs"][$program_id]["locations"][$key]["max_members"] .'
+							</div>';
+							$hidden = "hidden";
+		}
 		$content = '<div class="container site_content">
 					<a href="home.php" class="back_link"><span class="back_link-glyphicon"></span>Back to all programs</a>
 
@@ -119,21 +129,66 @@
 								'. $_SESSION["programs"][$program_id]["description"] .'
 
 							</p>
-							<div class="program_details-spaces_available">
-								<span class="program_details-spaces_available--glyphicon"></span>
-								Available for 20 more people!
-							</div>
+							' . $max_members . '
 					</article>
 
-					<div class="col-sm-6 col-sm-offset-3 form-group program_details-location_selection">
-						<select class="form-control locations" id ="select_locations">
-						  	'. $options .'
-					  	</select>
-					  <button class="btn btn-lg program_details-sign_up" type="submit" title="Sign up for program"> Sign up</button>
+					<form action="#" method="post">
+						<div class="col-sm-6 col-sm-offset-3 form-group program_details-location_selection">
+							<select class="form-control locations" name="selected_location" id ="select_locations">
+							  	'. $options .'
+						  	</select>
+						  	<input type="hidden" name="action" value="signup">
+						  	<input type="hidden" name="program_id" value="'. $program_id .'">
+
+						  	'. $signup_btn .'
+						</div>
+
+						<div class="modal fade" id="program_signup_modal" role="dialog">
+					    <div class="modal-dialog modal-lg">
+					     	<form action="#" method="post">	
+					     		<div class="modal-content post_modal">
+								    <div class="modal-header post_modal-header">
+								        <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title posts-title">Write a post</h4>
+								    </div>
+								    <div class="modal-body">
+								    	<div>
+
+											<div class="form-group">
+												<label for="">Price:</label>
+												<div class="btn alt_btns">
+												 '. $_SESSION["programs"][$program_id]["price"] . '
+												 	<span> 
+												 		'. $_SESSION["programs"][$program_id]["currency"] .' 
+												 	</span>
+												</div>
+											</div>
+
+
+											<div class="form-group">
+											    <label for="">Credit card code:</label>
+											    <input type="text" class="form-control" id="" name="credit_card_code">
+											</div>
+										</div>
+									</div>
+								
+								    <div class="modal-footer post_align post_modal-footer">
+								    	<input type="hidden" name="action" value="signup">
+								    	<button type="submit" class="btn alt_btns" title="Sign up for program"> Sign up</button>
+								        <button type="button" class="btn default_btns" data-dismiss="modal">Close</button>
+								    </div>
+								</div>
+					     	</form>
+						</div>
 					</div>
+					</form>
+
+
+					
 				</div>';
 	}
 	include "template.php";
-?>
 
+
+?>
 

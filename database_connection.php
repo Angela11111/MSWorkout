@@ -11,5 +11,4 @@ if(!$database_connection){
 	print("We couldn't connect to the database due to" . mysqli_connect_errno() . PHP_EOL);
 }
 
-
 ?>

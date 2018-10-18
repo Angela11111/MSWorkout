@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include "database_connection.php";
 include "functions/_general_functions.php";
 include "functions/_home_functions.php";

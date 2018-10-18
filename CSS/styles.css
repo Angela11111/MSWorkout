@@ -5931,10 +5931,10 @@ button.close {
     .login_form-forgot_password_link, .login_form-forgot_password_link:link, .login_form-forgot_password_link:visited, .login_form-forgot_password_link:hover, .login_form-forgot_password_link:focus, .login_form-forgot_password_link:active {
       color: #929292;
       text-decoration: none; }
-  .login_form #email, .login_form #pwd {
+  .login_form-inputs {
     border-radius: 0;
     border-color: #929292; }
-  .login_form-btn_login {
+  .login_form-btn_submit {
     background-color: #d43E55;
     color: #FFFFFF;
     display: block;
@@ -5942,7 +5942,7 @@ button.close {
     margin-right: auto;
     padding: 10px 30px;
     margin-bottom: 30px; }
-    .login_form-btn_login:visited, .login_form-btn_login:hover, .login_form-btn_login:focus, .login_form-btn_login:active {
+    .login_form-btn_submit:visited, .login_form-btn_submit:hover, .login_form-btn_submit:focus, .login_form-btn_submit:active {
       background-color: #A72539;
       color: #E8E8E8; }
   .login_form-signup_link {
@@ -5989,6 +5989,65 @@ button.close {
 
 @media (min-width: 764px) {
   .login_form {
+    border-right: 1px solid lightgrey;
+    border-bottom: 0; } }
+.page_content {
+  margin-bottom: 260px; }
+
+.signup_form {
+  padding: 30px;
+  border-right: 0;
+  border-bottom: 1px solid lightgrey; }
+  .signup_form-inputs {
+    border-radius: 0;
+    border-color: #929292; }
+  .signup_form-btn_submit {
+    background-color: #d43E55;
+    color: #FFFFFF;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 30px;
+    margin-bottom: 30px; }
+    .signup_form-btn_submit:visited, .signup_form-btn_submit:hover, .signup_form-btn_submit:focus, .signup_form-btn_submit:active {
+      background-color: #A72539;
+      color: #E8E8E8; }
+  .signup_form-title {
+    display: block;
+    color: #929292;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px; }
+
+.social_signup-title {
+  display: block;
+  color: #929292;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px; }
+.social_signup-btn {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 50px;
+  color: #FFFFFF;
+  font-weight: bold; }
+  .social_signup-btn:hover {
+    color: #FFFFFF; }
+  .social_signup-btn--with_facebook {
+    background-color: #375A95; }
+    .social_signup-btn--with_facebook:visited, .social_signup-btn--with_facebook:hover, .social_signup-btn--with_facebook:active {
+      background-color: #213659; }
+  .social_signup-btn--with_twitter {
+    background-color: #00A0EF; }
+    .social_signup-btn--with_twitter:visited, .social_signup-btn--with_twitter:hover, .social_signup-btn--with_twitter:active {
+      background-color: #086EA0; }
+  .social_signup-btn--with_google {
+    background-color: #E44640; }
+    .social_signup-btn--with_google:visited, .social_signup-btn--with_google:hover, .social_signup-btn--with_google:active {
+      background-color: #931A15; }
+
+@media (min-width: 764px) {
+  .signup_form {
     border-right: 1px solid lightgrey;
     border-bottom: 0; } }
 .about_us-content {

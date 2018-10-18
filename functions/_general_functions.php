@@ -25,18 +25,32 @@ function get_page_content($page){
 }
 
 
+
 function error_notice($error = '', $action="add"){
-	static $errors;
-	$output_errors ='';
+	global $errors;
+	// $output_errors ='';
+	// print("errors before add");
+	// var_dump($errors);
 	if($action == "get"){
 
-		foreach ($errors as $error) {
-			$output_errors .= "<div style='color:red'>" . $error . "</div>";
-		}
-		return $output_errors;
+		// if($errors != []){
+		// 	foreach ($errors as $error) {
+		// 		$output_errors .= "<div style='color:red'>" . $error . "</div>";
+		// 	}
+		// }
+		//unset($output_errors);
+		return $errors;
+
 	}
 
-	$errors[] = $error;
+	else{	
+		if($errors == ''){
+			$errors = $error;
+		}
+		else{
+			$errors .= $error;
+		}
+	}
 
 }
 
@@ -48,11 +62,11 @@ function get_locations($program){ //of a program
 	$get_locations_query = mysqli_query($database_connection, "SELECT l.full_adress, l.max_members, location_id from programs_locations pl, locations l where program_id = '" . $program . "' and pl.location_id = l.id"); 
 	while($location = mysqli_fetch_array($get_locations_query)){
 		$location_id = $location["location_id"];
-		unset($location["location_id"]);
+		
 		$locations[$location_id] = $location;
 	}
 
-	// $_SESSION["programs"][$program]["locations"] = $locations;
+    $_SESSION["programs"][$program]["locations"] = $locations;
 	return $locations;
 }
 
@@ -77,7 +91,7 @@ function get_program_location_id($program_id, $user_id){
 
 	$program_id = trim(mysqli_real_escape_string($database_connection, $program_id));
 	$user_id = trim(mysqli_real_escape_string($database_connection, $user_id));
-	$pl_query = mysqli_query($database_connection, "SELECT programs_locations.id as id FROM members, programs_locations WHERE members.user_id = '" . $user_id . "' and programs_locations.program_id = '" . $program_id ."'");
+	$pl_query = mysqli_query($database_connection, "SELECT programs_locations.id as id FROM members, programs_locations WHERE members.user_id = '" . $user_id . "' and programs_locations.program_id = '" . $program_id ."' and members.program_in_location= programs_locations.id");
 	$pl_id = mysqli_fetch_array($pl_query, MYSQLI_ASSOC);
 	return $pl_id["id"];
 }
@@ -123,6 +137,18 @@ function alphanumeric_requirement($variables){
 	return $flag;
 }
 
+function numeric_requirement($variables){
+	$flag = TRUE;
+		foreach ($variables as $key => $value) {
+			if(!is_numeric($value)){
+				error_notice("The " . $key . " field must only contain numbers.");
+				$flag = FALSE;
+			}
+		}
+
+	return $flag;
+}
+
 function min_lenght_requirement($variables, $min_size){
 	$flag = TRUE;
 	//var_dump($variables);
@@ -135,4 +161,6 @@ function min_lenght_requirement($variables, $min_size){
 
 	return $flag;
 }
+
+
 ?>
