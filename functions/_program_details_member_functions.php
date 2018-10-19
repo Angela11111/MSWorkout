@@ -174,6 +174,7 @@ function submit_post($post){
 
 function upload_post_images($max_size = 5000000){
 	foreach ($_FILES as $file) {
+		
 		$picture  = $file["profile_pic"];
 		$picture_name = $picture["name"];
 		$picture_temp_location = $picture["tmp_name"];

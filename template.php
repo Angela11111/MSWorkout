@@ -166,13 +166,14 @@ else{
 			}
 		break;
 		case 'upload_pic':
-			$_SESSION["temp_profile_picture"] = upload_picture_temp();
-			finish_image_upload($_SESSION["temp_profile_picture"]); //eden pristap do baza
+			$_SESSION["temp_profile_picture"] = upload_picture_temp("profile_pic");
+			finish_profile_image_upload($_SESSION["temp_profile_picture"]); //eden pristap do baza
 			unset($_SESSION["temp_profile_picture"]);
 
-			break;
+		break;
 		
-
+		case 'submit_program':
+			add_new_program(); //gi zima od request direkt u funkcijata
 
 		}
 	}

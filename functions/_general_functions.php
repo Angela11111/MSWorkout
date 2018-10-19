@@ -70,6 +70,18 @@ function get_locations($program){ //of a program
 	return $locations;
 }
 
+function get_all_locations(){ //of a program
+	global $database_connection;
+
+	$get_all_locations_query = mysqli_query($database_connection, "SELECT * from locations"); 
+	while($location = mysqli_fetch_array($get_all_locations_query)){
+		$location_id = $location["id"];
+		
+		$locations[$location_id] = $location;
+	}
+
+	return $locations;
+}
 
 function get_programs(){
 	global $database_connection;
@@ -160,6 +172,45 @@ function min_lenght_requirement($variables, $min_size){
 		}
 
 	return $flag;
+}
+
+
+function upload_picture_temp($name_file, $max_size = 5000000){
+	$picture  = $_FILES[$name_file];
+	$picture_name = $picture["name"];
+	$picture_temp_location = $picture["tmp_name"];
+	$picture_type = $picture["type"];
+	$picture_size = $picture["size"];
+	$error = $picture["error"];
+
+	$picture_name_ext = explode(".", $picture_name);
+	$picture_actual_ext = trim(strtolower(end($picture_name_ext)));
+
+	$allowed = ["jpg", "jpeg", "gif", "png"];
+
+	if(in_array($picture_actual_ext, $allowed)){
+
+		if($error === 0){
+
+			if($picture_size < $max_size){
+
+				$picture_new_name = uniqid('', true) . "." . $picture_actual_ext;
+				move_uploaded_file($picture_temp_location, $picture_new_name);
+				return $picture_new_name;
+			}
+			else{
+				error_notice("Size too big");
+			}
+		}
+		else{
+			error_notice("Error in image " );
+			var_dump($picture);
+		}
+	}
+	else{
+		error_notice("not allowed extension");
+	}
+	
 }
 
 

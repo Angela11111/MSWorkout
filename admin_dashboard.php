@@ -75,7 +75,7 @@ $content = '<div class="site_content container">
 					 </div>
 
 					 <div class="all_users-content">
-					   ' . generate_users() .'
+					   ' . generate_users() . '
 					 </div>
 					 <div class="all_users-content--goto_all_programs">
 							<a href="home.php" class="btn all_users-content--goto_all_programs-btn">
@@ -95,57 +95,49 @@ $content = '<div class="site_content container">
 			          <h4 class="modal-title">New program</h4>
 			        </div>
 			        <div class="modal-body">
-			          <form action="/action_page.php">
+			          <form action="#" method="post" enctype="multipart/form-data">
 			          		<div class="form-group">
 								<label for="program_modal-name" hidden="true">Program name:</label>
-								<input type="text" class="form-control program_modal-name" id="program_modal-name" name="new_post_title" placeholder="Name">
+								<input type="text" class="form-control program_modal-name" id="program_modal-name" name="new_program_name" placeholder="Name">
 							</div>
 
 							<div class="form-group">
-								<label for="program_modal-description" hidden="true">Content:</label>
-								<textarea class="form-control program_modal-description" id="program_modal-description" name="new_post_content" placeholder="Write description"></textarea>
+								<label for="program_modal-description" hidden="true">Description:</label>
+								<textarea class="form-control program_modal-description" id="program_modal-description" name="new_program_description" placeholder="Write description"></textarea>
 							</div>
 
 							<div class="form-group">
 								<label for="program_modal-price" hidden="true">Price:</label>
-								<input type="text" class="form-control program_modal-price" id="program_modal-price" name="new_post_title" placeholder="Price">
+								<input type="text" class="form-control program_modal-price" id="program_modal-price" name="new_program_price" placeholder="Price">
 							</div>
 
 							<div class="form-group">
 								<label for="program_modal-currency" hidden="true">Currency:</label>
-								<input type="text" class="form-control program_modal-currency" id="program_modal-urrency" name="new_post_title" placeholder="Currency">
+								<input type="text" class="form-control program_modal-currency" id="program_modal-currency" name="new_program_currency" placeholder="Currency">
 							</div>
 							<div class="form-group">
 							    <label>Featured: </label>
-							    <input type="checkbox">
+							    <input type="checkbox" name="new_program_featured" value="off">
+							</div>
+							<div class="form-group">
+								<label>Upload program picture: </label>
+								<input type="file" name="new_program_image" id="new_program_image" value="Uploaded picture"/>
 							</div>
 
 							<hr>
 
 							
 							<label>Locations:</label>
-							
-							
 							<div class="form-group">
-								<label for="program_modal-locations" hidden="true">Locations:</label>
-								<input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations" placeholder="Location">
+								<span class="">Number of locations:</span>
+								<input type="text" class="" name="set_num_loc">
+								<span class="btn" id="generate_location_inputs" style="border: 1px solid grey">Generate inputs</span>
 							</div>
-							<div class="form-group">
-								<label for="program_modal-locations" hidden="true">Locations:</label>
-								<input type="text" class="form-control" name="max_participants" placeholder="Max participants in location..">
+							<div id="location_inputs_container">
+								
 							</div>
 
-							<hr>
-
-							<div class="form-group">
-								<label for="program_modal-locations" hidden="true">Locations:</label>
-								<input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations" placeholder="Location">
-							</div>
-							<div class="form-group">
-								<label for="program_modal-locations" hidden="true">Locations:</label>
-								<input type="text" class="form-control" name="max_participants" placeholder="Max participants in location..">
-							</div>
-
+						<input type="hidden" name="action" value="submit_program">
 					    <button type="submit" class="btn btn-default">Submit</button>
 					  </form>
 			        </div>
@@ -162,3 +154,11 @@ $content = '<div class="site_content container">
 			</div>';
 include "template.php";
 ?>
+<script type="text/javascript">
+	$("#generate_location_inputs").click(function(){
+		loc_num = $("[name = set_num_loc]").val();
+		for(i=0; i < loc_num; i++){
+			$("#location_inputs_container").append('<div class="form-group"><label for="program_modal-locations" hidden="true">Locations:</label><input type="text" class="form-control program_modal-locations" id="program_modal-locations" name="new_program_locations['+ i +']"  placeholder="Location"></div><div class="form-group"><label for="program_modal-locations" hidden="true">Locations:</label><input type="text" class="form-control" name="new_program_max_members['+ i +']" placeholder="Max participants in location.."></div><hr>');
+		}
+	});
+</script>
